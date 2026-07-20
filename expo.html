@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMARTY — ระบบบริหารนิติบุคคลอาคารชุด</title>
+<meta name="description" content="SMARTY ระบบบริหารนิติบุคคลอาคารชุดโดย msm — จ่ายค่าส่วนกลาง รับใบเสร็จออนไลน์ แจ้งเตือนพัสดุ จองงานช่าง ครบ จบ ในแอปเดียว">
+<meta property="og:title" content="SMARTY — ระบบบริหารนิติบุคคลอาคารชุด">
+<meta property="og:description" content="ยกระดับการอยู่อาศัยสู่ความสมาร์ทที่สมบูรณ์แบบ — งานนิติบุคคล การเงิน และบริการลูกบ้าน ครบ จบ ในแอปเดียว">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -36,11 +39,12 @@
     --ease-out-premium: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-press: cubic-bezier(0.4, 0, 0.2, 1);
     --sans: 'IBM Plex Sans Thai', 'Inter', -apple-system, system-ui, sans-serif;
-    --mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    --mono: 'IBM Plex Mono', 'IBM Plex Sans Thai', 'JetBrains Mono', monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  [id] { scroll-margin-top: 76px; }
 
   body {
     font-family: var(--sans);
@@ -191,7 +195,12 @@
     margin: 64px auto 0;
     background: transparent;
   }
-  .hero-device img { width: 100%; }
+  .hero-device img {
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    object-fit: cover;
+    object-position: center 42%;
+  }
 
   /* ---------- Trust ledger ---------- */
   .trust-ledger {
@@ -294,7 +303,7 @@
   .ledger td { padding: 9px 0; border-bottom: 1px solid var(--hairline); }
   .ledger td:last-child { text-align: right; }
   .ledger .lg-label { color: var(--body); }
-  .ledger .lg-ok { color: #4ade80; }
+  .ledger .lg-ok { color: var(--success); }
   .ledger .lg-total td { border-bottom: none; padding-top: 12px; font-size: 15px; font-weight: 500; }
 
   /* ---------- Image frame cards ---------- */
@@ -303,6 +312,9 @@
     border-radius: 16px;
     overflow: hidden;
     background: var(--canvas);
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .img-frame img { width: 100%; }
   .img-frame .frame-caption {
@@ -825,31 +837,6 @@
   </div>
 </section>
 
-<!-- ================= Download band ================= -->
-<section id="download" class="section dl-band">
-  <div class="container">
-    <p class="section-kicker reveal">Smarty Application</p>
-    <h2 class="display-lg reveal">โหลดได้แล้ววันนี้ ฝั่งลูกบ้านใช้งานฟรี</h2>
-    <div class="store-row reveal">
-      <a class="store-btn reveal" href="https://apps.apple.com/th/app/smarty/id6471044886">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.6 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3.1-.8 1.5 0 1.8.8 3.1.8 1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-4zM14.2 5.2c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.8-1.5z"/></svg>
-        <span><span class="s-top">Download on the</span><br><span class="s-name">App Store</span></span>
-      </a>
-      <a class="store-btn reveal" href="https://play.google.com/store/apps/details?id=com.hrim.smarty">
-        <svg width="18" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 3.5v17l9.5-8.5L4 3.5z" fill="#fff"/><path d="M13.5 12L16 9.8l3.5 1.9c.7.4.7 1.2 0 1.6L16 15.2 13.5 12z" fill="#fff" opacity="0.8"/></svg>
-        <span><span class="s-top">GET IT ON</span><br><span class="s-name">Google Play</span></span>
-      </a>
-      <a class="store-btn reveal" href="#">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><path d="M8.5 8.5a3.5 3.5 0 007 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span><span class="s-top">GET IT ON</span><br><span class="s-name">AppGallery</span></span>
-      </a>
-    </div>
-    <div class="dl-meta reveal">
-      <span class="badge">รองรับ iOS · Android · HUAWEI</span>
-    </div>
-  </div>
-</section>
-
 <!-- ================= Testimonials ================= -->
 <section id="testimonials" class="section testimonial-section">
   <div class="container">
@@ -935,6 +922,31 @@
   </div>
 </section>
 
+<!-- ================= Download band ================= -->
+<section id="download" class="section dl-band">
+  <div class="container">
+    <p class="section-kicker reveal">Smarty Application</p>
+    <h2 class="display-lg reveal">โหลดได้แล้ววันนี้ ฝั่งลูกบ้านใช้งานฟรี</h2>
+    <div class="store-row reveal">
+      <a class="store-btn reveal" href="https://apps.apple.com/th/app/smarty/id6471044886">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.6 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.8-3.5.8-.7 0-1.9-.8-3.1-.8-1.6 0-3.1.9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3.1-.8 1.5 0 1.8.8 3.1.8 1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.6-1-2.6-4zM14.2 5.2c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.8-1.5z"/></svg>
+        <span><span class="s-top">Download on the</span><br><span class="s-name">App Store</span></span>
+      </a>
+      <a class="store-btn reveal" href="https://play.google.com/store/apps/details?id=com.hrim.smarty">
+        <svg width="18" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 3.5v17l9.5-8.5L4 3.5z" fill="#fff"/><path d="M13.5 12L16 9.8l3.5 1.9c.7.4.7 1.2 0 1.6L16 15.2 13.5 12z" fill="#fff" opacity="0.8"/></svg>
+        <span><span class="s-top">GET IT ON</span><br><span class="s-name">Google Play</span></span>
+      </a>
+      <a class="store-btn reveal" href="#">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" stroke-width="1.6"/><path d="M8.5 8.5a3.5 3.5 0 007 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span><span class="s-top">GET IT ON</span><br><span class="s-name">AppGallery</span></span>
+      </a>
+    </div>
+    <div class="dl-meta reveal">
+      <span class="badge">รองรับ iOS · Android · HUAWEI</span>
+    </div>
+  </div>
+</section>
+
 <!-- ================= CTA band ================= -->
 <section id="contact" class="section cta-band">
   <div class="container">
@@ -1016,6 +1028,7 @@
         <ul>
           <li><a href="#download">ดาวน์โหลดแอป</a></li>
           <li><a href="#start">การลงทะเบียน</a></li>
+          <li><a href="#faq">คำถามที่พบบ่อย</a></li>
           <li><a href="#testimonials">เสียงผู้ใช้งาน</a></li>
           <li><a href="#contact">สำหรับนิติบุคคล</a></li>
         </ul>
