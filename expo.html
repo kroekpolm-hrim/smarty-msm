@@ -572,6 +572,18 @@
   }
 
   /* ---------- Reveal ---------- */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 800ms var(--ease-out-premium),
+      transform 800ms var(--ease-out-premium);
+    will-change: opacity, transform;
+  }
+  .section-reveal.section-in {
+    opacity: 1;
+    transform: none;
+  }
   .reveal {
     opacity: 0;
     transform: translateY(20px) scale(0.995);
@@ -591,7 +603,7 @@
       transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
-    .reveal, .hero-enter, .hero-phone-enter {
+    .section-reveal, .reveal, .hero-enter, .hero-phone-enter {
       opacity: 1;
       transform: none;
     }
@@ -648,7 +660,6 @@
     <ul class="nav-links">
       <li><a href="#features">ฟีเจอร์</a></li>
       <li><a href="#payment">การชำระเงิน</a></li>
-      <li><a href="#ecosystem">ครอบครัว SMARTY</a></li>
       <li><a href="#start">เริ่มใช้งาน</a></li>
       <li><a href="#download">ดาวน์โหลด</a></li>
     </ul>
@@ -676,7 +687,7 @@
 </header>
 
 <!-- ================= Trust ledger ================= -->
-<section id="trust" class="trust-ledger" aria-labelledby="trust-title">
+<section id="trust" class="trust-ledger section-reveal" aria-labelledby="trust-title">
   <div class="container">
     <div class="trust-heading reveal">
       <p class="section-kicker">การใช้งานจริง</p>
@@ -704,7 +715,7 @@
 </div>
 
 <!-- ================= Features ================= -->
-<section id="features" class="section">
+<section id="features" class="section section-reveal">
   <div class="container">
     <div class="section-head">
       <p class="section-kicker reveal">ฟีเจอร์</p>
@@ -747,7 +758,7 @@
 </section>
 
 <!-- ================= Payment / ledger ================= -->
-<section id="payment" class="section" style="padding-top: 0;">
+<section id="payment" class="section section-reveal" style="padding-top: 0;">
   <div class="container split">
     <div class="copy reveal">
       <p class="section-kicker">การเงินนิติบุคคล</p>
@@ -779,26 +790,8 @@
   </div>
 </section>
 
-<!-- ================= Ecosystem (real campaign image) ================= -->
-<section id="ecosystem" class="section" style="padding-top: 0;">
-  <div class="container">
-    <div class="section-head">
-      <p class="section-kicker reveal">ครอบครัว SMARTY</p>
-      <h2 class="display-lg reveal">สองแอป หนึ่งระบบ ดูแลทั้งการอยู่อาศัยและการเงิน</h2>
-      <p class="reveal"><b style="color: var(--ink); font-weight: 600;">SMART LIVING</b> สำหรับลูกบ้านและงานบริการ · <b style="color: var(--ink); font-weight: 600;">SMART FINANCE</b> สำหรับการเงินนิติบุคคล — เชื่อมข้อมูลถึงกันทั้งหมด</p>
-    </div>
-    <figure class="img-frame reveal">
-      <img src="img/web-01-min.jpg" alt="แคมเปญ SMARTY x2 — แอป SMART LIVING และ SMART FINANCE by msm" loading="lazy">
-      <figcaption class="frame-caption">
-        <span><b>SMARTY ×2</b> — แอปคู่ใจลูกบ้าน เหมาะกับทุกไลฟ์สไตล์</span>
-        <span class="caption-upper">ภาพจากแคมเปญจริง</span>
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
 <!-- ================= Workflow (real pre-registration image) ================= -->
-<section id="start" class="section" style="padding-top: 0;">
+<section id="start" class="section section-reveal" style="padding-top: 0;">
   <div class="container workflow">
     <div class="reveal">
       <p class="section-kicker">เริ่มใช้งาน</p>
@@ -838,7 +831,7 @@
 </section>
 
 <!-- ================= Testimonials ================= -->
-<section id="testimonials" class="section testimonial-section">
+<section id="testimonials" class="section testimonial-section section-reveal">
   <div class="container">
     <div class="section-head">
       <p class="section-kicker reveal">ประสบการณ์ใช้งาน</p>
@@ -868,7 +861,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section id="faq" class="section faq-section">
+<section id="faq" class="section faq-section section-reveal">
   <div class="container">
     <div class="section-head">
       <p class="section-kicker reveal">FAQ</p>
@@ -923,7 +916,7 @@
 </section>
 
 <!-- ================= Download band ================= -->
-<section id="download" class="section dl-band">
+<section id="download" class="section dl-band section-reveal">
   <div class="container">
     <p class="section-kicker reveal">Smarty Application</p>
     <h2 class="display-lg reveal">โหลดได้แล้ววันนี้ ฝั่งลูกบ้านใช้งานฟรี</h2>
@@ -948,7 +941,7 @@
 </section>
 
 <!-- ================= CTA band ================= -->
-<section id="contact" class="section cta-band">
+<section id="contact" class="section cta-band section-reveal">
   <div class="container">
     <div class="contact-panel reveal">
       <div class="contact-copy">
@@ -1005,7 +998,7 @@
 </section>
 
 <!-- ================= Footer ================= -->
-<footer>
+<footer class="section-reveal">
   <div class="container">
     <div class="footer-grid">
       <div class="reveal">
@@ -1020,7 +1013,6 @@
         <ul>
           <li><a href="#payment">One Stop Payment</a></li>
           <li><a href="#features">Dashboard กรรมการ</a></li>
-          <li><a href="#ecosystem">SMART LIVING · FINANCE</a></li>
         </ul>
       </div>
       <div class="reveal">
@@ -1167,19 +1159,53 @@
     });
   }
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-  // Fallback: never leave content hidden if IntersectionObserver stalls
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
-  }, 1500);
+  const sections = document.querySelectorAll(
+    'body > section, body > footer, #expo-content > section, #expo-content > footer'
+  );
+  const revealAll = () => {
+    sections.forEach((section) => section.classList.add('section-in'));
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  };
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    const activateSection = (section) => {
+      section.classList.add('section-in');
+      section.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+          activateSection(section);
+          sectionObserver.unobserve(section);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    // Safety fallback for a visible section if an observer callback is delayed.
+    setTimeout(() => {
+      sections.forEach((section) => {
+        if (!section.classList.contains('section-in') && isInViewport(section)) {
+          activateSection(section);
+          sectionObserver.unobserve(section);
+        }
+      });
+    }, 1800);
+  }
 </script>
 
 </body>

@@ -64,6 +64,46 @@ def test_hybrid_contract():
     assert '<script src="./assets/expo-body.js"></script>' in index
     assert read(EXPO_JS).strip() == between(expo, "<script>", "</script>").strip()
 
+    assert "SMARTY by MSM" in hero_only
+    assert "SMART LIVING BY MSM" not in hero_only
+
+    removed_content = (
+        "ครอบครัว SMARTY",
+        "สองแอป หนึ่งระบบ ดูแลทั้งการอยู่อาศัยและการเงิน",
+        "SMART LIVING · FINANCE",
+        "#ecosystem",
+    )
+    for token in removed_content:
+        assert token not in expo
+        assert token not in index
+    assert '{label:`ครอบครัว SMARTY`,href:`#ecosystem`},' not in hero_only
+
+    top_level_sections = re.findall(r"<section\b[^>]*>", generated_body)
+    assert top_level_sections
+    assert all(
+        re.search(r'class="[^"]*\bsection-reveal\b[^"]*"', section)
+        for section in top_level_sections
+    )
+    top_level_footer = re.search(r"<footer\b[^>]*>", generated_body)
+    assert top_level_footer
+    assert re.search(
+        r'class="[^"]*\bsection-reveal\b[^"]*"',
+        top_level_footer.group(0),
+    )
+
+    assert ".section-reveal {" in css
+    assert ".section-reveal.section-in" in css
+    assert ".section-reveal, .reveal" in css
+
+    expo_js = read(EXPO_JS)
+    assert "const sectionObserver = new IntersectionObserver" in expo_js
+    assert "section.classList.add('section-in')" in expo_js
+    assert (
+        "body > section, body > footer, #expo-content > section, #expo-content > footer"
+        in expo_js
+    )
+    assert "if (reduceMotion || !('IntersectionObserver' in window))" in expo_js
+
     serialized = "\n".join((index, hero_only, css, read(EXPO_JS)))
     assert "file://" not in serialized
     assert "/Users/" not in serialized

@@ -561,6 +561,18 @@
   }
 
   /* ---------- Reveal ---------- */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 800ms var(--ease-out-premium),
+      transform 800ms var(--ease-out-premium);
+    will-change: opacity, transform;
+  }
+  .section-reveal.section-in {
+    opacity: 1;
+    transform: none;
+  }
   .reveal {
     opacity: 0;
     transform: translateY(20px) scale(0.995);
@@ -580,7 +592,7 @@
       transition-delay: 0ms !important;
       scroll-behavior: auto !important;
     }
-    .reveal, .hero-enter, .hero-phone-enter {
+    .section-reveal, .reveal, .hero-enter, .hero-phone-enter {
       opacity: 1;
       transform: none;
     }

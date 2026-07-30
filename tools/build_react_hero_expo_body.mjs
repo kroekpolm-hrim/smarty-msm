@@ -45,7 +45,20 @@ const heroOnlySegment = appSegment.replace(`,${bodyCall}`, '');
 if (heroOnlySegment === appSegment) {
   throw new Error('Could not remove the React Body render call');
 }
-const heroOnlyBundle = originalBundle.replace(appSegment, heroOnlySegment);
+let heroOnlyBundle = originalBundle.replace(appSegment, heroOnlySegment);
+
+const heroBadgeSource = 'SMART LIVING BY MSM';
+const heroBadgeTarget = 'SMARTY by MSM';
+if (!heroOnlyBundle.includes(heroBadgeSource)) {
+  throw new Error(`Expected Hero badge copy not found: ${heroBadgeSource}`);
+}
+heroOnlyBundle = heroOnlyBundle.replaceAll(heroBadgeSource, heroBadgeTarget);
+
+const ecosystemNavItem = '{label:`ครอบครัว SMARTY`,href:`#ecosystem`},';
+if (!heroOnlyBundle.includes(ecosystemNavItem)) {
+  throw new Error('Expected ecosystem navigation item not found');
+}
+heroOnlyBundle = heroOnlyBundle.replace(ecosystemNavItem, '');
 
 const expoBody = between(expo, '</header>', '<script>');
 const expoScript = between(expo, '<script>', '</script>').trim();

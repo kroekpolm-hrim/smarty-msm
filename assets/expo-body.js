@@ -116,16 +116,50 @@ document.querySelectorAll('.trust-grid, .feature-grid, .steps, .store-row, .test
     });
   }
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-  // Fallback: never leave content hidden if IntersectionObserver stalls
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
-  }, 1500);
+  const sections = document.querySelectorAll(
+    'body > section, body > footer, #expo-content > section, #expo-content > footer'
+  );
+  const revealAll = () => {
+    sections.forEach((section) => section.classList.add('section-in'));
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+  };
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    const activateSection = (section) => {
+      section.classList.add('section-in');
+      section.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+          activateSection(section);
+          sectionObserver.unobserve(section);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    // Safety fallback for a visible section if an observer callback is delayed.
+    setTimeout(() => {
+      sections.forEach((section) => {
+        if (!section.classList.contains('section-in') && isInViewport(section)) {
+          activateSection(section);
+          sectionObserver.unobserve(section);
+        }
+      });
+    }, 1800);
+  }
