@@ -57,6 +57,16 @@ No new accent color will compete with cobalt. Green remains limited to status in
 - Give each number a small cobalt marker and slightly stronger data typography.
 - Keep the mock-data disclosure visible.
 
+### Campaign banner
+
+- Place the approved SMARTY campaign banner immediately after the Trust ledger and before Features.
+- Replace the current moving benefit ticker because its five messages repeat the benefits already embedded in the banner artwork.
+- Store the banner as a local optimized WebP asset instead of loading it from the WordPress URL at runtime.
+- Present it inside a full-width rounded frame with a cool-blue ambient glow, a subtle upper-edge highlight, and a restrained 6px scroll parallax effect.
+- Preserve the complete 2:1 artwork without cropping because its typography is embedded in the image.
+- On mobile, show the complete artwork at its natural ratio without parallax. Add a concise caption below it so the campaign message remains accessible even when baked-in text becomes visually small.
+- Use descriptive alternative text summarizing the five benefits and the SMART LIVING / SMART FINANCE relationship.
+
 ### Features
 
 - Add a restrained alternating elevation rhythm across cards.
@@ -112,6 +122,7 @@ No new accent color will compete with cobalt. Green remains limited to status in
 - Keep `expo.html` as the editable body/CSS/JavaScript source.
 - Extend existing design tokens and component classes instead of adding a library.
 - Add decorative markup only where pseudo-elements cannot express the required signal path or status chips.
+- Download `http://msm-muangthong.com/wp-content/uploads/2026/04/05-banner-Smarty-App_Revise1.webp` during implementation and commit it under `img/` with a stable project-owned filename.
 - Rebuild `index.html`, `assets/expo-body.css`, and `assets/expo-body.js` through the existing generator.
 - Preserve the compiled React Hero architecture; Hero atmosphere should be implemented with scoped CSS targeting stable Hero structure and pseudo-elements where possible.
 
@@ -120,4 +131,3 @@ No new accent color will compete with cobalt. Green remains limited to status in
 - Contract tests must confirm the signature hooks, motion fallback, generated/source parity, and preserved content.
 - Browser QA must check desktop and mobile layouts, Hero video readiness, absence of horizontal overflow, section reveal behavior, hover/focus states, and console errors.
 - GitHub Pages must deploy successfully, followed by a live URL verification.
-
