@@ -22,6 +22,7 @@
     --hairline-strong: #dcdee0;
     --canvas: #ffffff;
     --canvas-soft: #fafafa;
+    --canvas-cool: #f7faff;
     --surface-strong: #f0f0f3;
     --surface-dark: #171717;
     --surface-dark-elevated: #1a1a1a;
@@ -33,6 +34,11 @@
     --brand-blue: #0b5fce;
     --brand-blue-active: #084da8;
     --brand-blue-soft: #eaf3ff;
+    --brand-blue-bright: #2d7fe8;
+    --hairline-blue: rgba(11,95,206,0.16);
+    --ambient-blue: rgba(45,127,232,0.14);
+    --shadow-soft: 0 18px 48px rgba(23,38,61,0.08);
+    --shadow-blue: 0 24px 64px rgba(11,95,206,0.12);
     --motion-fast: 180ms;
     --motion-standard: 420ms;
     --motion-reveal: 700ms;
@@ -212,28 +218,65 @@
   .trust-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
   .trust-heading .section-kicker { margin-bottom: 4px; }
   .trust-heading h2 { max-width: 560px; text-align: right; }
-  .trust-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--hairline-strong); border-radius: 14px; overflow: hidden; }
+  .trust-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--hairline-strong); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-soft); }
   .trust-stat { position: relative; display: grid; gap: 6px; min-height: 154px; align-content: center; padding: 24px 28px; background: var(--canvas); }
+  .trust-stat::before { content: ""; width: 7px; height: 7px; margin-bottom: 8px; border-radius: 50%; background: var(--brand-blue-bright); box-shadow: 0 0 0 5px rgba(45,127,232,0.10); }
   .trust-stat + .trust-stat { border-left: 1px solid var(--hairline-strong); }
   .trust-value { color: var(--brand-blue); font-family: var(--sans); font-size: 42px; font-weight: 600; line-height: 1; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
   .trust-stat span { color: var(--ink); font-size: 14px; font-weight: 600; }
   .mock-disclosure { margin-top: 16px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 
-  /* ---------- Check strip ---------- */
-  .check-strip {
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
+  /* ---------- Campaign + SMARTY signal ---------- */
+  .campaign-showcase {
+    position: relative;
+    padding: 28px 0 96px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 10%, rgba(45,127,232,0.12), transparent 44%),
+      linear-gradient(180deg, var(--canvas), var(--canvas-cool));
+  }
+  .campaign-frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.85);
+    border-radius: 20px;
     background: var(--canvas);
+    box-shadow: var(--shadow-blue);
+    translate: 0 var(--depth-parallax-y, 0);
   }
-  .check-strip .strip-inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px 32px;
-    padding: 20px 24px;
+  .campaign-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
   }
-  .check-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); }
-  .check-item svg { flex: none; }
+  .campaign-frame img { width: 100%; height: auto; }
+  .campaign-frame figcaption {
+    padding: 14px 20px;
+    border-top: 1px solid var(--hairline-blue);
+    background: rgba(255,255,255,0.92);
+    color: var(--body);
+    font-size: 13px;
+  }
+  .smarty-signal { position: relative; }
+  .smarty-signal::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    left: 8%;
+    right: 8%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brand-blue-bright), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms var(--ease-out-premium);
+    pointer-events: none;
+  }
+  .smarty-signal.section-in::after,
+  .smarty-signal.in::after { transform: scaleX(1); }
 
   /* ---------- Feature grid ---------- */
   .feature-grid {
@@ -242,18 +285,25 @@
     gap: 20px;
   }
   .f-card {
+    position: relative;
+    overflow: hidden;
     background: var(--canvas);
     border: 1px solid var(--hairline);
     border-radius: 12px;
     padding: 24px;
+    box-shadow: 0 10px 30px rgba(23,38,61,0.04);
   }
+  .f-card::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--brand-blue-bright), transparent); opacity: 0; transition: opacity var(--motion-fast) ease; }
+  .f-card:hover::before { opacity: 1; }
+  .f-card:nth-child(2), .f-card:nth-child(5) { translate: 0 10px; }
   .f-card .f-icon {
     width: 32px; height: 32px;
     border-radius: 8px;
-    background: var(--surface-strong);
+    background: linear-gradient(145deg, #f7fbff, var(--brand-blue-soft));
     display: flex; align-items: center; justify-content: center;
     color: var(--ink);
     margin-bottom: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
   }
   .f-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
   .f-card p { font-size: 14px; }
@@ -281,13 +331,47 @@
   .split ul.plain li svg { flex: none; margin-top: 4px; }
   .split ul.plain b { color: var(--ink); font-weight: 600; }
 
+  .ledger-stage {
+    position: relative;
+    padding: 26px;
+    translate: 0 var(--depth-parallax-y, 0);
+  }
+  .ledger-stage::before {
+    content: "";
+    position: absolute;
+    inset: 8% 0;
+    border-radius: 50%;
+    background: var(--ambient-blue);
+    filter: blur(34px);
+  }
   .ledger {
+    position: relative;
+    z-index: 1;
     background: var(--canvas);
     border: 1px solid var(--hairline);
     border-radius: 12px;
     padding: 20px;
     color: var(--ink);
+    box-shadow: var(--shadow-blue);
   }
+  .ledger-chip {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 11px;
+    border: 1px solid var(--hairline-blue);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.94);
+    box-shadow: 0 10px 28px rgba(23,38,61,0.10);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .ledger-chip--top { top: 0; right: 4px; }
+  .ledger-chip--bottom { bottom: 2px; left: 0; }
   .ledger .ledger-head {
     display: flex;
     align-items: center;
@@ -336,8 +420,11 @@
     gap: 64px;
     align-items: center;
   }
-  .steps { display: grid; gap: 12px; }
+  .steps { position: relative; display: grid; gap: 12px; }
+  .steps::before { content: ""; position: absolute; left: 15px; top: 30px; bottom: 30px; width: 1px; background: linear-gradient(var(--brand-blue-bright), rgba(45,127,232,0.12)); }
   .step {
+    position: relative;
+    z-index: 1;
     display: flex;
     gap: 16px;
     align-items: flex-start;
@@ -345,12 +432,13 @@
     border: 1px solid var(--hairline);
     border-radius: 12px;
     padding: 20px;
+    box-shadow: 0 10px 28px rgba(23,38,61,0.04);
   }
   .step .step-num {
     flex: none;
     width: 32px; height: 32px;
     border-radius: 8px;
-    background: var(--surface-strong);
+    background: linear-gradient(145deg, #f7fbff, var(--brand-blue-soft));
     display: flex; align-items: center; justify-content: center;
     font-family: var(--mono);
     font-size: 13px;
@@ -361,7 +449,11 @@
 
   /* ---------- Download band ---------- */
   .dl-band {
-    background: var(--canvas-soft);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 15%, rgba(45,127,232,0.14), transparent 42%),
+      var(--canvas-cool);
     border-top: 1px solid var(--hairline);
     border-bottom: 1px solid var(--hairline);
   }
@@ -387,7 +479,7 @@
   /* ---------- Testimonials ---------- */
   .testimonial-section { background: var(--brand-blue-soft); }
   .testimonial-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  .testimonial-card { position: relative; display: grid; align-content: start; min-height: 280px; padding: 28px; border: 1px solid rgba(11,95,206,0.16); border-radius: 14px; background: var(--canvas); }
+  .testimonial-card { position: relative; display: grid; align-content: start; min-height: 280px; padding: 28px; border: 1px solid rgba(11,95,206,0.16); border-radius: 14px; background: linear-gradient(145deg, #fff 0%, #f8fbff 100%); }
   .testimonial-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
   .testimonial-audience { color: var(--brand-blue); font-size: 13px; font-weight: 600; }
   .mock-badge { display: inline-flex; padding: 4px 9px; border-radius: 9999px; background: var(--brand-blue-soft); color: var(--brand-blue-active); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; }
@@ -488,8 +580,9 @@
     transition: transform var(--motion-standard) var(--ease-out-premium);
   }
   .faq-item summary {
-    transition: background-color var(--motion-fast) ease;
+    transition: background-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
   }
+  .faq-item summary:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: -2px; border-radius: 8px; }
   .nav-links a, .footer-grid a {
     transition:
       color var(--motion-fast) ease,
@@ -511,8 +604,8 @@
   }
 
   /* ---------- Contact ---------- */
-  .cta-band { background: var(--canvas); }
-  .contact-panel { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); border: 1px solid rgba(11,95,206,0.18); border-radius: 18px; overflow: hidden; background: var(--canvas); box-shadow: 0 24px 64px rgba(11,95,206,0.09); }
+  .cta-band { position: relative; overflow: hidden; background: radial-gradient(circle at 50% 50%, rgba(45,127,232,0.10), transparent 48%), var(--canvas); }
+  .contact-panel { position: relative; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); border: 1px solid rgba(11,95,206,0.18); border-radius: 18px; overflow: hidden; background: var(--canvas); box-shadow: var(--shadow-blue); }
   .contact-copy { padding: 48px; background: var(--brand-blue-soft); }
   .contact-copy h2 { margin-bottom: 18px; }
   .contact-copy > p:not(.section-kicker):not(.contact-hours) { max-width: 480px; }
@@ -607,6 +700,8 @@
       opacity: 1;
       transform: none;
     }
+    [data-depth-parallax] { translate: none !important; }
+    .smarty-signal::after { transform: scaleX(1); transition: none; }
   }
 
   /* ---------- Responsive ---------- */
@@ -617,6 +712,9 @@
   }
   @media (max-width: 820px) {
     .section { padding: 64px 0; }
+    .campaign-showcase { padding: 18px 0 64px; }
+    .campaign-frame { border-radius: 14px; translate: none; }
+    .campaign-frame figcaption { font-size: 12px; }
     .nav-links { display: none; }
     .split, .workflow { grid-template-columns: 1fr; gap: 40px; }
     .faq-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -629,6 +727,9 @@
     .contact-panel { grid-template-columns: 1fr; }
     .contact-copy, .callback-shell { padding: 36px; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
+    .f-card:nth-child(2), .f-card:nth-child(5) { translate: none; }
+    .ledger-chip { display: none; }
+    .ledger-stage { padding: 12px 0; translate: none; }
   }
   @media (max-width: 560px) {
     .display-mega { font-size: 34px; }
@@ -687,7 +788,7 @@
 </header>
 
 <!-- ================= Trust ledger ================= -->
-<section id="trust" class="trust-ledger section-reveal" aria-labelledby="trust-title">
+<section id="trust" class="trust-ledger section-reveal smarty-signal" aria-labelledby="trust-title">
   <div class="container">
     <div class="trust-heading reveal">
       <p class="section-kicker">การใช้งานจริง</p>
@@ -703,16 +804,21 @@
   </div>
 </section>
 
-<!-- ================= Check strip ================= -->
-<div class="check-strip">
-  <div class="container strip-inner">
-    <span class="check-item"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#16a34a" stroke-width="1.5"/><path d="M6 10.2l2.6 2.6L14 7.4" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>เช็กค่าส่วนกลางได้ทันใจ</span>
-    <span class="check-item"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#16a34a" stroke-width="1.5"/><path d="M6 10.2l2.6 2.6L14 7.4" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>จ่ายออนไลน์ได้ทุกที่ ทุกเวลา</span>
-    <span class="check-item"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#16a34a" stroke-width="1.5"/><path d="M6 10.2l2.6 2.6L14 7.4" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>รับใบเสร็จออนไลน์ได้ทันที</span>
-    <span class="check-item"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#16a34a" stroke-width="1.5"/><path d="M6 10.2l2.6 2.6L14 7.4" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>แจ้งเตือนทันทีเมื่อพัสดุมาถึง</span>
-    <span class="check-item"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#16a34a" stroke-width="1.5"/><path d="M6 10.2l2.6 2.6L14 7.4" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>ครบเครื่องเรื่องช่าง นัดง่ายในไม่กี่คลิก</span>
+<!-- ================= Campaign showcase ================= -->
+<section class="campaign-showcase section-reveal smarty-signal" aria-label="ภาพรวมประโยชน์ของ SMARTY">
+  <div class="container">
+    <figure class="campaign-frame reveal" data-depth-parallax>
+      <img
+        src="img/smarty-campaign-banner.webp"
+        alt="SMARTY เช็กค่าส่วนกลาง จ่ายและรับใบเสร็จออนไลน์ แจ้งพัสดุ และนัดหมายงานช่าง พร้อมระบบ SMART LIVING และ SMART FINANCE"
+        width="2400"
+        height="1000"
+        loading="lazy"
+      >
+      <figcaption>SMARTY เชื่อมงานการเงินและบริการลูกบ้านไว้ในประสบการณ์เดียว</figcaption>
+    </figure>
   </div>
-</div>
+</section>
 
 <!-- ================= Features ================= -->
 <section id="features" class="section section-reveal">
@@ -771,7 +877,8 @@
       </ul>
       <a href="#contact" class="text-link">คุยกับทีมงานเรื่องการวางระบบการเงิน →</a>
     </div>
-    <div class="reveal">
+    <div class="ledger-stage smarty-signal reveal" data-depth-parallax>
+      <span class="ledger-chip ledger-chip--top" aria-hidden="true">● ยอดตรงกัน</span>
       <div class="ledger" role="img" aria-label="ตัวอย่างรายการชำระค่าส่วนกลางในระบบ">
         <div class="ledger-head">
           <div class="win-dots"><span></span><span></span><span></span></div>
@@ -786,6 +893,7 @@
           <tr class="lg-total"><td>ยอดรวมรับชำระ</td><td>฿5,162.50</td></tr>
         </table>
       </div>
+      <span class="ledger-chip ledger-chip--bottom" aria-hidden="true">↻ อัปเดตแบบ Real-Time</span>
     </div>
   </div>
 </section>
@@ -1050,6 +1158,33 @@
   const countFormatter = new Intl.NumberFormat('th-TH');
   const counters = document.querySelectorAll('.count-up');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const depthParallaxItems = document.querySelectorAll('[data-depth-parallax]');
+  let depthParallaxFrame = 0;
+
+  const updateDepthParallax = () => {
+    depthParallaxFrame = 0;
+    if (reduceMotion) return;
+    depthParallaxItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const centerOffset = (
+        rect.top + rect.height / 2 - window.innerHeight / 2
+      ) / window.innerHeight;
+      const offset = Math.max(-6, Math.min(6, centerOffset * -12));
+      item.style.setProperty('--depth-parallax-y', `${offset.toFixed(2)}px`);
+    });
+  };
+
+  const requestDepthParallax = () => {
+    if (!depthParallaxFrame) {
+      depthParallaxFrame = requestAnimationFrame(updateDepthParallax);
+    }
+  };
+
+  if (!reduceMotion) {
+    updateDepthParallax();
+    window.addEventListener('scroll', requestDepthParallax, { passive: true });
+    window.addEventListener('resize', requestDepthParallax);
+  }
 
   const setCounterFinal = (counter) => {
     const target = Number(counter.dataset.count);

@@ -7,6 +7,33 @@ document.querySelectorAll('.trust-grid, .feature-grid, .steps, .store-row, .test
   const countFormatter = new Intl.NumberFormat('th-TH');
   const counters = document.querySelectorAll('.count-up');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const depthParallaxItems = document.querySelectorAll('[data-depth-parallax]');
+  let depthParallaxFrame = 0;
+
+  const updateDepthParallax = () => {
+    depthParallaxFrame = 0;
+    if (reduceMotion) return;
+    depthParallaxItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const centerOffset = (
+        rect.top + rect.height / 2 - window.innerHeight / 2
+      ) / window.innerHeight;
+      const offset = Math.max(-6, Math.min(6, centerOffset * -12));
+      item.style.setProperty('--depth-parallax-y', `${offset.toFixed(2)}px`);
+    });
+  };
+
+  const requestDepthParallax = () => {
+    if (!depthParallaxFrame) {
+      depthParallaxFrame = requestAnimationFrame(updateDepthParallax);
+    }
+  };
+
+  if (!reduceMotion) {
+    updateDepthParallax();
+    window.addEventListener('scroll', requestDepthParallax, { passive: true });
+    window.addEventListener('resize', requestDepthParallax);
+  }
 
   const setCounterFinal = (counter) => {
     const target = Number(counter.dataset.count);

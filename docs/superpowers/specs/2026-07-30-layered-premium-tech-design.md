@@ -63,7 +63,7 @@ No new accent color will compete with cobalt. Green remains limited to status in
 - Replace the current moving benefit ticker because its five messages repeat the benefits already embedded in the banner artwork.
 - Store the banner as a local optimized WebP asset instead of loading it from the WordPress URL at runtime.
 - Present it inside a full-width rounded frame with a cool-blue ambient glow, a subtle upper-edge highlight, and a restrained 6px scroll parallax effect.
-- Preserve the complete 2:1 artwork without cropping because its typography is embedded in the image.
+- Preserve the complete 12:5 artwork at its native `2400 × 1000` ratio without cropping because its typography is embedded in the image.
 - On mobile, show the complete artwork at its natural ratio without parallax. Add a concise caption below it so the campaign message remains accessible even when baked-in text becomes visually small.
 - Use descriptive alternative text summarizing the five benefits and the SMART LIVING / SMART FINANCE relationship.
 
@@ -124,7 +124,7 @@ No new accent color will compete with cobalt. Green remains limited to status in
 - Add decorative markup only where pseudo-elements cannot express the required signal path or status chips.
 - Download `http://msm-muangthong.com/wp-content/uploads/2026/04/05-banner-Smarty-App_Revise1.webp` during implementation and commit it under `img/` with a stable project-owned filename.
 - Rebuild `index.html`, `assets/expo-body.css`, and `assets/expo-body.js` through the existing generator.
-- Preserve the compiled React Hero architecture; Hero atmosphere should be implemented with scoped CSS targeting stable Hero structure and pseudo-elements where possible.
+- Preserve the compiled React Hero architecture; Hero atmosphere should use the stable React `.hero` class and pseudo-elements. On mobile, reduce only the presenter layer opacity so Hero copy remains readable while the presenter and video pipeline remain present.
 
 ## Verification
 

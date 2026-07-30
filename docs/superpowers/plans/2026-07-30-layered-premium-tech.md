@@ -12,7 +12,7 @@
 
 - Preserve IBM Plex Sans Thai, the current React Hero layout, copy, presenter video, form behavior, FAQ behavior, counters, and existing content.
 - Use `#0B5FCE` as the cobalt signal and do not introduce another competing accent color.
-- Replace the moving benefit ticker with the approved complete 2:1 campaign artwork.
+- Replace the moving benefit ticker with the approved complete 12:5 campaign artwork.
 - Keep ambient parallax within 6–12px, hover elevation within 3–5px, and disable both under `prefers-reduced-motion: reduce`.
 - Do not add a JavaScript or CSS dependency.
 - Do not create horizontal overflow at desktop, tablet, or mobile widths.
@@ -102,7 +102,7 @@ Remove the complete `.check-strip` markup from `expo.html` and insert:
       <img
         src="img/smarty-campaign-banner.webp"
         alt="SMARTY เช็กค่าส่วนกลาง จ่ายและรับใบเสร็จออนไลน์ แจ้งพัสดุ และนัดหมายงานช่าง พร้อมระบบ SMART LIVING และ SMART FINANCE"
-        width="2000"
+        width="2400"
         height="1000"
         loading="lazy"
       >
@@ -130,7 +130,7 @@ Expected: the asset and campaign assertions pass; the test next fails because th
 - Modify: `tools/build_react_hero_expo_body.mjs`
 
 **Interfaces:**
-- Consumes: existing design tokens and stable `#root > header + section` Hero structure
+- Consumes: existing design tokens and stable `#root .hero` React Hero structure
 - Produces: SMARTY Signal, elevated cards, Hero atmosphere, product-stage chips, and responsive/reduced-motion rules
 
 - [ ] **Step 1: Extend the visual tokens**
@@ -154,7 +154,7 @@ Add focused rules to `expo.html` for:
 .campaign-showcase { position: relative; padding: 28px 0 96px; background: linear-gradient(180deg, var(--canvas), var(--canvas-cool)); overflow: hidden; }
 .campaign-frame { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.85); border-radius: 20px; background: var(--canvas); box-shadow: var(--shadow-blue); transform: translateY(var(--depth-parallax-y, 0)); }
 .campaign-frame::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.9); }
-.campaign-frame img { width: 100%; aspect-ratio: 2 / 1; object-fit: contain; }
+.campaign-frame img { width: 100%; height: auto; }
 .campaign-frame figcaption { padding: 14px 20px; border-top: 1px solid var(--hairline-blue); background: rgba(255,255,255,.92); color: var(--body); font-size: 13px; }
 .smarty-signal::after { content: ""; position: absolute; left: 8%; right: 8%; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--brand-blue-bright), transparent); transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-out-premium); }
 .smarty-signal.section-in::after { transform: scaleX(1); }
@@ -209,12 +209,12 @@ Replace the direct payment `.ledger` wrapper with:
 Create `assets/hero-atmosphere.css` with:
 
 ```css
-#root > header + section {
+#root .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
 }
-#root > header + section::before {
+#root .hero::before {
   content: "";
   position: absolute;
   z-index: 0;
@@ -227,7 +227,7 @@ Create `assets/hero-atmosphere.css` with:
   filter: blur(4px);
   pointer-events: none;
 }
-#root > header + section::after {
+#root .hero::after {
   content: "";
   position: absolute;
   z-index: 0;
@@ -237,14 +237,18 @@ Create `assets/hero-atmosphere.css` with:
   mask-image: linear-gradient(to bottom, transparent, #000 28%, #000 72%, transparent);
   pointer-events: none;
 }
-#root > header + section > * { position: relative; z-index: 1; }
 @media (max-width: 767px) {
-  #root > header + section::after { display: none; }
-  #root > header + section::before { width: 120vw; right: -52%; opacity: .65; }
+  #root .hero::after { display: none; }
+  #root .hero::before { width: 120vw; right: -52%; opacity: .65; }
+  #root .hero > div:last-child {
+    opacity: .28;
+    filter: saturate(.85);
+    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  #root > header + section::before,
-  #root > header + section::after { transform: none !important; }
+  #root .hero::before,
+  #root .hero::after { transform: none !important; }
 }
 ```
 

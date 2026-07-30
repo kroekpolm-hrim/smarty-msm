@@ -9,8 +9,10 @@ ORIGINAL_BUNDLE = ROOT / "assets/index-9aNYj2SZ.js"
 HERO_BUNDLE = ROOT / "assets/index-hero-only.js"
 EXPO_CSS = ROOT / "assets/expo-body.css"
 EXPO_JS = ROOT / "assets/expo-body.js"
+HERO_ATMOSPHERE = ROOT / "assets/hero-atmosphere.css"
 INDEX = ROOT / "index.html"
 EXPO = ROOT / "expo.html"
+CAMPAIGN_ASSET = ROOT / "img/smarty-campaign-banner.webp"
 
 
 def read(path):
@@ -103,6 +105,31 @@ def test_hybrid_contract():
         in expo_js
     )
     assert "if (reduceMotion || !('IntersectionObserver' in window))" in expo_js
+
+    assert CAMPAIGN_ASSET.is_file()
+    assert CAMPAIGN_ASSET.stat().st_size > 100_000
+    assert HERO_ATMOSPHERE.is_file()
+
+    assert "campaign-showcase" in expo
+    assert "smarty-campaign-banner.webp" in expo
+    assert "check-strip" not in expo
+    assert "ledger-stage" in expo
+    assert expo.count('class="ledger-chip') == 2
+    assert "smarty-signal" in expo
+
+    assert "data-depth-parallax" in expo
+    assert "updateDepthParallax" in expo_js
+    assert "prefers-reduced-motion: reduce" in css
+    assert ".smarty-signal" in css
+    assert ".campaign-frame" in css
+    assert ".ledger-chip" in css
+
+    atmosphere_css = read(HERO_ATMOSPHERE)
+    assert "#root .hero {" in atmosphere_css
+    assert "#root .hero > div:last-child" in atmosphere_css
+    assert "#root > header + section" not in atmosphere_css
+    assert "@media (prefers-reduced-motion: reduce)" in atmosphere_css
+    assert '<link rel="stylesheet" href="./assets/hero-atmosphere.css">' in index
 
     serialized = "\n".join((index, hero_only, css, read(EXPO_JS)))
     assert "file://" not in serialized

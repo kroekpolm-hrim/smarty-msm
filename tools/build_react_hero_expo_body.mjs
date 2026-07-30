@@ -83,6 +83,7 @@ const index = `<!doctype html>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script type="module" crossorigin src="/smarty-msm/assets/index-hero-only.js"></script>
     <link rel="stylesheet" crossorigin href="/smarty-msm/assets/index-CQp2J6RA.css">
+    <link rel="stylesheet" href="./assets/hero-atmosphere.css">
     <link rel="stylesheet" href="./assets/expo-body.css">
   </head>
   <body>
